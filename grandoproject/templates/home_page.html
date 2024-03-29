@@ -1,22 +1,19 @@
 {% extends "base.html" %}
 {% load static %}
 
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Clickable Image</title>
+{% block title %}Clickable Image{% endblock %}
+
+{% block content %}
     <style>
-      .container {
+        .container {
             display: flex;
             flex-direction: row;
-            margin-top: 50px; /* Немного ниже */
-            margin-left: 50px; /* Смещение влево */
+            margin-top: 50px; 
+            margin-left: 50px; 
         }
 
         .text-container {
-            margin-left: 50px; /* Смещение влево для текстового контейнера */
+            margin-left: -450px;
         }
 
         .container img {
@@ -43,63 +40,61 @@
             transform: translateX(-50%);
         }
 
-      .caption {
-        margin-top: 10px;
-        font-size: 14px;
-        color: #fff;
-        text-decoration: underline;
-      }
+        .caption {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #fff;
+            text-decoration: underline;
+        }
 
-      
-    </style>
-  </head>
+        .vertical-nav {
+            position: fixed;
+            top: 33%; 
+            left: 1250px; 
+            transform: translateY(-50%); 
+            display: flex;
+            flex-direction: column; 
+            align-items: flex-start; 
+            gap: 10px; 
+            background-color: #2763cc; 
+            padding: 10px; 
+            border-radius: 8px; 
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); 
+        }
 
-  <body>
+        .vertical-nav a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 24px;
+        }
 
-
-    {% block extra_nav %}
-    <style> 
-      .vertical-nav {
-      position: fixed;
-      top: 33%; 
-      left: 1250px; 
-      transform: translateY(-50%); 
-      display: flex;
-      flex-direction: column; 
-      align-items: flex-start; 
-      gap: 10px; 
-      background-color: #2763cc; 
-      padding: 10px; 
-      border-radius: 8px; 
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); 
-      }
-
-      .vertical-nav a {
-          color: #fff;
-          text-decoration: none;
-          font-size: 24px;
-      }
-
-      .vertical-nav a:hover {
-          color: #3498db;
-      }
-
-
+        .vertical-nav a:hover {
+            color: #3498db;
+        }
     </style>
 
-    <div class="text-container">
-            <h1>Заголовок вашего текста</h1>
-            <p>Ваш текст здесь...</p>
-    </div>
-  <nav>
-    <nav class="vertical-nav">
-    <a href="https://docs.google.com/spreadsheets/d/1jzrMM5bMA95ROkwj8ej8bQ3IhDc33yCGvAm6n7FTW6Y/edit?pli=1#gid=753513991" target="_blank"> График работы большегрузного тр-та Грандо</a>
-    <a href="https://docs.google.com/spreadsheets/d/1Pbur90f1l0GUcdULZFJsNp0QI3sHYBn-1-QDREPdWBo/edit#gid=1123983548" target="_blank">Возможные претензии</a>
-    <a href="http://web.m2max.ru/" target="_blank"> Навигация m2max </a>
-    <a href="#" target="_blank"> Расписание региональной доставки </a>
-    <a href="#" target="_blank"> Расписание городской доставки </a>
-</nav>
+<!--     <div class="text-container">
+    <h1>Добро пожаловать!</h1>
+    <p>Сайт предназначен для удобного доступа к информации о клиентах, 
+        автомобилях, прицепах, водителях и многом другом. 
+     </p>    
+    <p> Здесь вы можете быстро получить нужные вам данные.
+    </p>
+      <p> Также предоставлен удобный функционал для отправки email-рассылок клиентам. 
+       Это значительно экономит время и позволяет общаться с поставщиками более эффективно.
+    </p>
+    <p>Если у вас есть идеи о дополнительном функционале, ждем ваших идей для воплщения новых возможностей сайта.
+    </p>
+</div> -->
+
+  
+    <nav>
+        <nav class="vertical-nav">
+            <a href="https://docs.google.com/spreadsheets/d/1jzrMM5bMA95ROkwj8ej8bQ3IhDc33yCGvAm6n7FTW6Y/edit?pli=1#gid=753513991" target="_blank"> График работы большегрузного тр-та Грандо</a>
+            <a href="https://docs.google.com/spreadsheets/d/1Pbur90f1l0GUcdULZFJsNp0QI3sHYBn-1-QDREPdWBo/edit#gid=1123983548" target="_blank">Возможные претензии</a>
+            <a href="http://web.m2max.ru/" target="_blank"> Навигация m2max </a>
+            <a href="#" target="_blank"> Расписание региональной доставки </a>
+            <a href="#" target="_blank"> Расписание городской доставки </a>
+        </nav>
+    </nav>
 {% endblock %}
-
-  </body>
-</html>

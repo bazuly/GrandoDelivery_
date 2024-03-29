@@ -2,26 +2,56 @@
 
 {% block content %}
 <h1> Профиль </h1>
+<style>
+        .button-16 {
+            background-color: #f8f9fa;
+            border: 1px solid #f8f9fa;
+            border-radius: 4px;
+            color: #3c4043;
+            cursor: pointer;
+            font-family: arial,sans-serif;
+            font-size: 14px;
+            height: 36px;
+            line-height: 27px;
+            min-width: 54px;
+            padding: 0 16px;
+            text-align: center;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+            white-space: pre;
+        }
 
+        .button-16:hover {
+            border-color: #dadce0;
+            box-shadow: rgba(0, 0, 0, .1) 0 1px 1px;
+            color: #202124;
+        }
+
+        .button-16:focus {
+            border-color: #4285f4;
+            outline: none;
+        }
+    </style>
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    {% if user.photo %}
+    <!-- {% if user.photo %}
     <p><img src="{{ user.photo.url }}" width="180" height="160"></p>
     {% else %}
     <p><img src="{{ default_image }}" width="180" height="160"></p>
-    {% endif %}
+    {% endif %} -->
 
-    <div class="form-error">{{ form.non_field_errors }}</div>
+    <!-- <div class="form-error">{{ form.non_field_errors }}</div> -->
     {% for f in form %}
         {% if f.name == 'photo' %}
-            <p><label class="form-label" for="{{ f.id_for_label }}"> {{ f.label }}: </label>{{ f }}</p>
+            <!-- <p><label class="form-label" for="{{ f.id_for_label }}"> {{ f.label }}: </label>{{ f }}</p> -->
             <div class="form-error">{{ f.errors }}</div>
         {% else %}
             <p><label class="form-label" for="{{ f.id_for_label }}"> {{ f.label }}: </label>{{ f }}</p>
             <div class="form-error">{{ f.errors }}</div>
         {% endif %}
     {% endfor %}
-    <p><button type="submit">Сохранить</button> </p>
+    <p><button type="submit" class="button-16">Сохранить</button> </p>
 </form>
 
 <hr>

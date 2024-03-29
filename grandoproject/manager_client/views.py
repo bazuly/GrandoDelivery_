@@ -24,7 +24,7 @@ def new_client_success(request):
 def get_client_data(request):
     client_data = Client.objects.all()
     # pagination
-    items_per_page = 3
+    items_per_page = 1
     paginator = Paginator(client_data, items_per_page)
     page = request.GET.get('page')
     try:
