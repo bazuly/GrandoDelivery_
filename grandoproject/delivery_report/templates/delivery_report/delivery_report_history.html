@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}История отчетов{% endblock %}
+
+{% block content %}
+  <h1>История отчетов</h1>
+
+  {% if delivery_report_history_data %}
+    <table>
+      <thead>
+        <tr>
+          <th>Направление</th>
+          <th>Водитель</th>
+          <th>Комментарии</th>
+          <th>Дата добавления</th>
+          <th>Диспетчер</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for report in delivery_report_history_data %}
+          <tr>
+            <td>{{ report.direction }}</td>
+            <td>{{ report.driver_name }}</td>
+            <td>{{ report.commentary }}</td>
+            <td>{{ report.created|date:"d.m.Y H:i" }}</td>
+            <td>{{ report.dispatcher }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>Нет доступных отчетов.</p>
+  {% endif %}
+{% endblock %}

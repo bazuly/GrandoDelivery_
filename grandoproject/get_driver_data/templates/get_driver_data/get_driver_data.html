@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}Добавление данных водителя {% endblock %}
+
+{% block header %}Добавление данных водителя {% endblock %}
+
+
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driver Data</title>
+
+</head>
+<body>
+    {% block content %}
+    {% include "get_driver_data/search_driver_data.html" %}
+
+    </a>
+    <div class="container">
+        <ul>
+            {% for data in driver_data %}
+            <li class="driver-item" ondblclick="toggleDriverData(this)">
+                <span>{{ data.name|title }}
+                    <br>
+<!--                     {{ data.org_name|upper }}</span>-->
+                <span class="driver-data">
+                   <pre> {{ data.other_data }} </pre>
+                </span>
+                    <br>
+                <span class="driver-data">
+                    {% if data.has_file %}
+                        <a href="{{ data.files.url }}" class="download-button" download>Скачать скан документов</a>
+                    {% else %}
+                        <button class="download-button" onclick="showNoFilePopup()">Скачать скан документов</button>
+                    {% endif %}
+                    </span>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="pagination">
+        <span class="step-links">
+            {% if driver_data.has_previous %}
+                <a href="?page=1">&laquo; первая</a>
+                <a href="?page={{ driver_data.previous_page_number }}">предыдущая</a>
+            {% endif %}
+
+            <span class="current">
+                Страница {{ driver_data.number }} из {{ driver_data.paginator.num_pages }}.
+            </span>
+
+            {% if driver_data.has_next %}
+                <a href="?page={{ driver_data.next_page_number }}">следующая</a>
+                <a href="?page={{ driver_data.paginator.num_pages }}">последняя &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+
+    {% endblock content %}
+</body>
+</html>

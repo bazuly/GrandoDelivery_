@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %} Оповещение клиентов по почте {% endblock %}
+
+{% block header %} Оповещение клиентов по почте {% endblock %}
+
+{% block content %}
+<h1> Рассылка клиентам на почту </h1>
+
+<form method="post">
+    {% csrf_token %}
+    <input type="hidden" name="next" value="{{ next }}"/>
+    <label for="{{ report_form.clients.id_for_label }}">Клиент:</label>
+    {{ report_form.clients }}
+    <br>
+    <label for="{{ report_form.date.id_for_label }}">Дата доставки:</label>
+    {{ report_form.date }}
+    <br>
+    <label for="{{ report_form.direction.id_for_label }}">Направление/Торговая точка:</label>
+    {{ report_form.direction }}
+    <br>
+    <label for="{{ report_form.message.id_for_label }}">Сообщение:</label>
+    {{ report_form.message }}
+    <br>
+    <p>
+        <button type="submit">Отправить отчет</button>
+    </p>
+</form>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $("#id_clients").select2()
+</script>
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}Добавление данных по машине{% endblock %}
+
+{% block header %}Данные на ТС{% endblock %}
+
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Data</title>
+    
+</head>
+<body>
+    {% block content %}
+    <div class="container">
+        {% include "get_car_data/search_car_data.html"%}
+
+        <h2>Данные на Транспортные средства</h2>
+        <ul>
+            {% for data in car_data %}
+            <li class="car-item" ondblclick="toggleCarData(this)">
+                <span>{{ data.car_name | upper }} {{ data.car_number }}</span>
+                <span class="car-data">
+                {% if data.has_file %}
+                    <a href="{{ data.car_scan_doc.url }}" class="download-button" download>Скачать скан документов</a>
+                {% else %}
+                    <button class="download-button" onclick="showNoFilePopup()">Скачать скан документов</button>
+                {% endif %}
+                </span>
+                        
+            </li>
+            {% endfor %}
+            
+        </ul>
+         
+        <div class="pagination">
+            <span class="step-links">
+                {% if car_data.has_previous %}
+                    <a href="?page=1">&laquo; первая</a>
+                    <a href="?page={{ car_data.previous_page_number }}">предыдущая</a>
+                {% endif %}
+
+                <span class="current">
+                    Страница {{ car_data.number }} из {{ car_data.paginator.num_pages }}.
+                </span>
+
+                {% if car_data.has_next %}
+                    <a href="?page={{ car_data.next_page_number }}">следующая</a>
+                    <a href="?page={{ car_data.paginator.num_pages }}">последняя &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+
+    {% endblock content %} 
+</body>
+</html>

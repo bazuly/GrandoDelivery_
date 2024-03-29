@@ -1,0 +1,57 @@
+<html lang="ru">
+<head>
+    <style>
+        .container {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        input[type="text"],
+        button,
+        a.download-button {
+            padding: 10px;
+            border: none;
+            border-radius: 20px;
+            outline: none;
+            font-size: 16px;
+            margin-bottom: 10px;
+            text-decoration: none; /* Убираем подчеркивание у ссылок */
+        }
+
+        input[type="text"] {
+            width: 200px;
+        }
+
+        button,
+        a.download-button {
+            background-color: #3498db;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: inline-block; /* Делаем элемент блочным, чтобы можно было задавать ширину */
+        }
+
+        button:hover,
+        a.download-button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    {% block content %}
+    <div class="container">
+        <h2>Результаты поиска</h2>
+        <form method="get" action="{% url 'get_driver_data:search_driver_data' %}">
+            <input type="text" name="q" value="{{ query }}" required>
+            <button type="submit">Поиск</button>
+            <a href="{% url 'get_driver_data:get_driver_data' %}">
+                <button type="button">Сбросить поиск</button>
+            </a>
+<!--            <a href="{{ data.files.url }}" class="download-button" download>Скачать скан документов</a>-->
+        </form>
+        <ul>
+        </ul>
+    </div>
+    {% endblock content %}
+</body>
+</html>

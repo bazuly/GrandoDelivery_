@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %} Контактная информция клиентов {% endblock %}
+
+{% block header %} Контактная информция клиентов  {% endblock %}
+
+
+<html lang="ru">
+<head>
+
+    
+</head>
+<body>
+    {% block content %}
+    <div class="container">
+        {% include "client/search_client.html" %}     
+           
+        <div class="pagination">
+            <span class="step-links">
+                {% if client_data.has_previous %}
+                    <a href="?page=1">&laquo; первая</a>
+                    <a href="?page={{ client_data.previous_page_number }}">предыдущая</a>
+                {% endif %}
+
+                <span class="current">
+                    Страница {{ client_data.number }} из {{ client_data.paginator.num_pages }}.
+                </span>
+
+                {% if client_data.has_next %}
+                    <a href="?page={{ client_data.next_page_number }}">следующая</a>
+                    <a href="?page={{ client_data.paginator.num_pages }}">последняя &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+    {% endblock content %}
+</body>
+</html>

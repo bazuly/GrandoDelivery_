@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Редактировать данные водителя</h1>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ driver_form.as_p }}
+    <button type="submit">Сохранить</button>
+</form>
+{% endblock %}

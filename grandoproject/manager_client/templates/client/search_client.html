@@ -1,0 +1,65 @@
+<html lang="ru">
+<head>
+    <style>
+     .container {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+    input[type="text"],
+    button,
+    a.download-button {
+        padding: 10px;
+        border: none;
+        border-radius: 20px;
+        outline: none;
+        font-size: 16px;
+        margin-bottom: 10px;
+        text-decoration: none; 
+    }
+
+    input[type="text"] {
+        width: 200px;
+    }
+
+    button,
+    a.download-button {
+        background-color: #3498db;
+        color: white;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        display: inline-block; 
+    }
+
+    button:hover,
+    a.download-button:hover {
+        background-color: #2980b9;
+    }
+    </style>
+</head>
+<body>
+    {% block content %}
+    <div class="container">
+        <h2>Результаты поиска</h2>
+        <form method="get" action="{% url 'manager_client:search_client' %}">
+            <input type="text" name="q" value="{{ query }}" required>
+            <button type="submit">Поиск</button>
+            <a href="{% url 'manager_client:get_client_data' %}">
+                <button type="button">Сбросить поиск</button>
+            </a>
+        </form>
+        <ul>
+            {% for data in client_data %}
+            <li class="client-item">
+                <div class="client-name">{{ data.name|upper }}</div>
+               <div class="client-contact"><pre>{{ data.contacts }}</pre></div>
+                <div class="client-manager">Ответственный Менеджер: {{ data.manager|title }}</div>
+            </li>
+            {% endfor %}
+    
+        
+        </ul>
+    </div>
+    {% endblock content %}
+</body>
+</html>

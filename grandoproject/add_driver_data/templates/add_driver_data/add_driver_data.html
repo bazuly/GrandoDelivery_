@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добавление данных на водителей</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #282c35;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #363b49;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            width: 80%;
+            margin-bottom: 20px;
+        }
+
+        .form-column {
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .left-column {
+            justify-content: flex-start;
+        }
+
+        .right-column {
+            justify-content: flex-end;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        input,
+        textarea,
+        select {
+            margin-bottom: 16px;
+            padding: 12px;
+            border: 1px solid #525866;
+            border-radius: 6px;
+            font-size: 16px;
+            color: #000;
+            background-color: #fff;
+        }
+
+        button {
+            padding: 12px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        #save-driver-button {
+            margin-bottom: 20px;
+            background-color: #00BFFF;
+        }
+
+        .button-container {
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-between;
+            color: #ADD8E6;
+        }
+    </style>
+</head>
+<body>
+    {% block content %}
+    <div class="form-container">
+        <div class="form-column left-column">
+            <h2>Добавить данные водителя</h2>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label for="{{ driver_form.name.id_for_label }}">Имя:</label>
+                <input type="text" name="name" id="id_name" required>
+
+                <label for="{{ driver_form.org_name.id_for_label }}">Организация:</label>
+                <input type="text" name="org_name" id="id_org_name">
+
+                <label for="{{ driver_form.other_data.id_for_label }}">Данные о водителях:</label>
+                <textarea name="other_data" id="id_other_data" rows='6' required></textarea>
+
+                <label for="{{ driver_form.files.id_for_label }}">Загрузочные файлы:</label>
+
+                <input type="file" name="files" accept=".zip" multiple>
+
+                <button type="submit" id="save-driver-button">Сохранить водителя</button>
+                <button type="button" onclick="window.location.href='{% url 'home_page' %}'">Вернуться на главную страницу</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        document.getElementById('save-driver-button').addEventListener('click', function(event) {
+            event.preventDefault();  
+            saveData('Ваши данные о водителе успешно добавлены');
+        });
+    
+        function saveData(successMessage) {
+            Swal.fire({
+                title: 'Успех!',
+                text: successMessage,
+                icon: 'success',
+                confirmButtonText: 'Ок',
+                timer: 5000
+            }).then(() => {
+                document.getElementById('save-driver-button').closest('form').submit();
+            });
+        }
+    </script>
+    {% endblock content %}
+</body>
+</html>

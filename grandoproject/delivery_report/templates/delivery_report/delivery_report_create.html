@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1> Отчет о доставке по регионам</h1>
+
+<form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ next }}"/>
+        <label for="{{ delivery_form.direction.id_for_label }}">Направление:</label>
+                {{ delivery_form.direction }}
+        <br>
+
+        <label for="{{ delivery_form.driver_name.id_for_label }}">Имя водителя:</label>
+                {{ delivery_form.driver_name }}
+        <br>
+
+        <label for="{{ delivery_form.commentary.id_for_label }}">Комментарии:</label>
+                {{ delivery_form.commentary }}
+
+        <br>
+
+        <label for="{{ delivery_form.client_list.id_for_label }}">Клиент:</label>
+                {{ delivery_form.client_list }}
+        <br>
+
+        <label for="{{ delivery_form.dispatcher.id_for_label }}">Ответственный сотрудник:</label>
+                {{ delivery_form.dispatcher }}
+        <br>
+
+        <p><button type="submit">Отправить отчет</button></p>
+    </form>
+
+{% endblock %}

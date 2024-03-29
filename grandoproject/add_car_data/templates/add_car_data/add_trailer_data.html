@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Car Data</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #282c35;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #363b49;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            width: 80%;
+            margin-bottom: 20px;
+        }
+
+        .form-column {
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .left-column {
+            justify-content: flex-start;
+        }
+
+        .right-column {
+            justify-content: flex-end;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        input,
+        textarea,
+        select {
+            margin-bottom: 16px;
+            padding: 12px;
+            border: 1px solid #525866;
+            border-radius: 6px;
+            font-size: 16px;
+            color: #000;
+            background-color: #fff;
+        }
+
+        button {
+            padding: 12px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        #save-trailer-button {
+            margin-bottom: 20px; /* Увеличьте значение по вашему усмотрению */
+            background-color: 	#00BFFF;
+        }
+
+        .button-container {
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-between;
+            color: #ADD8E6;
+        }
+    </style>
+</head>
+<body>
+    {% block content %}
+    <div class="form-container">
+        <div class="form-column left-column">
+            <h2>Добавить данные на ТС</h2>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <label for="{{ trailer_form.trailer_name.id_for_label }}">Марка полуприцепа:</label>
+                {{ trailer_form.trailer_name }}
+
+                <label for="{{ trailer_form.trailer_number.id_for_label }}">Номер полуприцепа:</label>
+                {{ trailer_form.trailer_number }}
+
+                <label for="{{ trailer_form.trailer_scan_doc.id_for_label}}">Загрузочные файлы:</label>
+                <input type="file" name="trailer_scan_doc" accept=".zip" multiple>
+                {% if trailer_form.trailer_scan_doc.errors %}
+                    <p>{{ trailer_form.trailer_scan_doc.errors }}</p>
+                {% endif %}
+
+
+                <button type="submit" id="save-trailer-button">Сохранить данные на ТС</button>
+                 <button type="button" onclick="window.location.href='{% url 'home_page' %}'">Вернуться на главную страницу</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        document.getElementById('save-trailer-button').addEventListener('click', function(event) {
+            event.preventDefault();  
+            saveData('Ваши данные на транспортное средство успешно добавлены');
+        });
+    
+        function saveData(successMessage) {
+            Swal.fire({
+                title: 'Успех!',
+                text: successMessage,
+                icon: 'success',
+                confirmButtonText: 'Ок',
+                timer: 5000
+            }).then(() => {
+                document.getElementById('save-trailer-button').closest('form').submit();
+            });
+        }
+    </script>
+    {% endblock %}
+</body>
+</html>
