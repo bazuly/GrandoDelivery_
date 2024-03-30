@@ -33,9 +33,9 @@
                     {% if data.has_file %}
                         <a href="{{ data.files.url }}" class="download-button" download>Скачать скан документов</a>
                     {% else %}
-                        <button class="download-button" onclick="showNoFilePopup()">Скачать скан документов</button>
+                        <span class="no-file-message">ФАЙЛЫ ОТСУТСТВУЮТ</span>
                     {% endif %}
-                    </span>
+                </span>
             </li>
             {% endfor %}
         </ul>
