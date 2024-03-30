@@ -130,23 +130,42 @@
         </div>
     </div>
     <script>
-        document.getElementById('save-car-button').addEventListener('click', function(event) {
-            event.preventDefault();
+    document.getElementById('save-car-button').addEventListener('click', function(event) {
+        event.preventDefault();
+        if (checkFormValidity()) {
             saveData('Ваши данные на транспортное средство успешно добавлены');
-        });
-
-        function saveData(successMessage) {
-            Swal.fire({
-                title: 'Успех!',
-                text: successMessage,
-                icon: 'success',
-                confirmButtonText: 'Ок',
-                timer: 5000
-            }).then(() => {
-                document.getElementById('save-car-button').closest('form').submit();
-            });
+        } else {
+            showError('Произошла ошибка. Пожалуйста, проверьте введенные данные.');
         }
-    </script>
+    });
+
+    function checkFormValidity() {
+        // Проверяем валидность формы Django
+        var formIsValid = document.getElementById('save-car-button').closest('form').checkValidity();
+        return formIsValid;
+    }
+
+    function showError(errorMessage) {
+        Swal.fire({
+            title: 'Ошибка!',
+            text: errorMessage,
+            icon: 'error',
+            confirmButtonText: 'Ок'
+        });
+    }
+
+    function saveData(successMessage) {
+        Swal.fire({
+            title: 'Успех!',
+            text: successMessage,
+            icon: 'success',
+            confirmButtonText: 'Ок',
+            timer: 5000
+        }).then(() => {
+            document.getElementById('save-car-button').closest('form').submit();
+        });
+    }
+</script>
     {% endblock %}
 </body>
 </html>

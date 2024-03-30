@@ -119,22 +119,40 @@
         </div>
     </div>
     <script>
-        document.getElementById('save-driver-button').addEventListener('click', function(event) {
-            event.preventDefault();  
-            saveData('Ваши данные о водителе успешно добавлены');
-        });
-    
-        function saveData(successMessage) {
-            Swal.fire({
-                title: 'Успех!',
-                text: successMessage,
-                icon: 'success',
-                confirmButtonText: 'Ок',
-                timer: 5000
-            }).then(() => {
-                document.getElementById('save-driver-button').closest('form').submit();
-            });
+    document.getElementById('save-driver-button').addEventListener('click', function(event) {
+        event.preventDefault();
+        if (checkFormValidity()) {
+            saveData('Ваши данные на транспортное средство успешно добавлены');
+        } else {
+            showError('Произошла ошибка. Пожалуйста, проверьте введенные данные.');
         }
+    });
+
+    function checkFormValidity() {
+        var formIsValid = document.getElementById('save-driver-button').closest('form').checkValidity();
+        return formIsValid;
+    }
+
+    function showError(errorMessage) {
+        Swal.fire({
+            title: 'Ошибка!',
+            text: errorMessage,
+            icon: 'error',
+            confirmButtonText: 'Ок'
+        });
+    }
+
+    function saveData(successMessage) {
+        Swal.fire({
+            title: 'Успех!',
+            text: successMessage,
+            icon: 'success',
+            confirmButtonText: 'Ок',
+            timer: 5000
+        }).then(() => {
+            document.getElementById('save-driver-button').closest('form').submit();
+        });
+    }
     </script>
     {% endblock content %}
 </body>

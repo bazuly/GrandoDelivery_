@@ -6,7 +6,7 @@ from django.core.validators import FileExtensionValidator
 class UploadCarData(models.Model):
     """Добавление данных транспортых средств"""
 
-    car_name = models.CharField(max_length=50, null=True, blank=True)
+    car_name = models.CharField(max_length=50, null=False)
     car_number = models.CharField(max_length=48, null=True, blank=True)
 
     created = models.DateTimeField(auto_now_add=True)
@@ -52,14 +52,11 @@ class UploadCarData(models.Model):
 class UploadTrailerData(models.Model):
     """Добавление данных полуприцепов"""
 
-    trailer_name = models.CharField(null=True,
-                                    max_length=48,
-                                    blank=True)
+    trailer_name = models.CharField(null=False,
+                                    max_length=48)
 
     trailer_number = models.CharField(max_length=48,
-                                      null=True,
-                                      blank=True)
-
+                                      null=False)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 

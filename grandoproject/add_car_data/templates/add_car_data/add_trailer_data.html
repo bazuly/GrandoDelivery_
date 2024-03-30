@@ -82,8 +82,8 @@
         }
 
         #save-trailer-button {
-            margin-bottom: 20px; /* Увеличьте значение по вашему усмотрению */
-            background-color: 	#00BFFF;
+            margin-bottom: 20px;
+            background-color: #00BFFF;
         }
 
         .button-container {
@@ -120,24 +120,42 @@
             </form>
         </div>
     </div>
-    <script>
-        document.getElementById('save-trailer-button').addEventListener('click', function(event) {
-            event.preventDefault();  
+     <script>
+    document.getElementById('save-trailer-button').addEventListener('click', function(event) {
+        event.preventDefault();
+        if (checkFormValidity()) {
             saveData('Ваши данные на транспортное средство успешно добавлены');
-        });
-    
-        function saveData(successMessage) {
-            Swal.fire({
-                title: 'Успех!',
-                text: successMessage,
-                icon: 'success',
-                confirmButtonText: 'Ок',
-                timer: 5000
-            }).then(() => {
-                document.getElementById('save-trailer-button').closest('form').submit();
-            });
+        } else {
+            showError('Произошла ошибка. Пожалуйста, проверьте введенные данные.');
         }
-    </script>
+    });
+
+    function checkFormValidity() {
+        var formIsValid = document.getElementById('save-trailer-button').closest('form').checkValidity();
+        return formIsValid;
+    }
+
+    function showError(errorMessage) {
+        Swal.fire({
+            title: 'Ошибка!',
+            text: errorMessage,
+            icon: 'error',
+            confirmButtonText: 'Ок'
+        });
+    }
+
+    function saveData(successMessage) {
+        Swal.fire({
+            title: 'Успех!',
+            text: successMessage,
+            icon: 'success',
+            confirmButtonText: 'Ок',
+            timer: 5000
+        }).then(() => {
+            document.getElementById('save-trailer-button').closest('form').submit();
+        });
+    }
+</script>
     {% endblock %}
 </body>
 </html>
