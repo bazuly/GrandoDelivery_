@@ -5,7 +5,7 @@ from manager_client.models import Client
 class DeliveryReport(models.Model):
     """ Модель отчета по доставке """
 
-    CLIENT_NAME_CHOICES = [(client.name, client.name) for client in Client.objects.all()]
+    # CLIENT_NAME_CHOICES = [(client.name, client.name) for client in Client.objects.all()]
     DISPATCHER_CHOICES = [
         ('Ксения Майорова', 'Ксения Майорова'),
         ('Мазалов Максим', 'Мазалов Максим'),
@@ -17,7 +17,7 @@ class DeliveryReport(models.Model):
     driver_name = models.CharField(max_length=128, null=False)
     commentary = models.TextField(max_length=256, blank=True, null=True)
     # Список перевозимых поставщиков
-    client_list = models.TextField(max_length=256, choices=CLIENT_NAME_CHOICES)
+    client_list = models.TextField(max_length=256) #choices=CLIENT_NAME_CHOICES)
     created = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     dispatcher = models.CharField(max_length=128, choices=DISPATCHER_CHOICES)
 
