@@ -10,11 +10,13 @@ class GetCarDataTest(TestCase):
         self.client = Client()
         self.user = User.objects.create_user(username='testuser', password='testpassword')
 
+
     def test_get_car_data_view_get(self):
         self.client.force_login(self.user)
         response = self.client.get(reverse('get_car_data:get_car_data'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'get_car_data/get_car_data.html')
+
 
     def test_download_car_data(self):
         self.client.force_login(self.user)
@@ -25,11 +27,13 @@ class GetCarDataTest(TestCase):
         downloaded_content = b''.join(response.streaming_content)
         self.assertEqual(downloaded_content, file_content)
 
+
     def test_get_trailer_data_view_get(self):
         self.client.force_login(self.user)
         response = self.client.get(reverse('get_car_data:get_trailer_data'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'get_car_data/get_trailer_data.html')
+
 
     def test_download_trailer_data(self):
         self.client.force_login(self.user)
@@ -40,6 +44,7 @@ class GetCarDataTest(TestCase):
         downloaded_content = b''.join(response.streaming_content)
         self.assertEqual(downloaded_content, file_content)
 
+
     def test_search_car_field(self):
         self.client.force_login(self.user)
         UploadCarData.objects.create(car_number='В244ТК147')
@@ -49,6 +54,7 @@ class GetCarDataTest(TestCase):
         actual_result = response.context['car_data']
         # обязательно сравниваем именно квери сеты
         self.assertQuerySetEqual(actual_result, expected_result)
+
 
     def test_search_trailer_field(self):
         self.client.force_login(self.user)
