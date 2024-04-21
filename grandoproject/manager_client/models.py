@@ -5,16 +5,17 @@ import re
 class Manager(models.Model):
     """ Manager Model """
 
-    name = models.CharField(max_length=128, null=False)
+    manager = models.CharField(max_length=128, null=False)
 
     def save(self, *args, **kwargs):
         if self.manager is not None:
             self.manager = self.manager.lower()
         else:
             self.manager = 'Не назначен'
+        super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.name
+        return self.manager
 
 
 class Client(models.Model):
@@ -36,4 +37,3 @@ class Client(models.Model):
 
     def __str__(self):
         return self.name
-    
