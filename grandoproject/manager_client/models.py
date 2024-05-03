@@ -3,13 +3,13 @@ import re
 
 
 class Manager(models.Model):
-    """ Manager Model """
+    """ Модель менеджеров """
 
     manager = models.CharField(max_length=128, null=False)
 
     def save(self, *args, **kwargs):
         if self.manager is not None:
-            self.manager = self.manager.lower()
+            self.manager = self.manager.title()
         else:
             self.manager = 'Не назначен'
         super().save(*args, **kwargs)
@@ -31,7 +31,7 @@ class Client(models.Model):
 
         if self.main_email:
             emails = re.findall(r'[\w\.-]+@[\w\.-]+', self.main_email)
-            self.main_email = ','.join(emails)
+            self.main_email = ','.join(emails) # + ',transport@grando.pro' 
 
         super(Client, self).save(*args, **kwargs)
 

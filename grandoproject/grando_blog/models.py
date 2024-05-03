@@ -1,6 +1,6 @@
 from django.db import models
 
-# сделать приложение с возможными претензиями
+
 class Category(models.Model):
     CATEGORIES_CHOICES = [
         ('Претензии', 'Претензии')
@@ -26,7 +26,7 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
-    author = models.CharField(max_length=128)  # сделать чтобы тут был залогиненый юзер
+    author = models.CharField(max_length=128)
     body = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)

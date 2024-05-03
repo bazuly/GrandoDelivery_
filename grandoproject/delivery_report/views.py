@@ -31,7 +31,8 @@ def create_delivery_report(request):
     else:
         delivery_form = DeliveryReportForm()
 
-    return render(request, 'delivery_report/delivery_report_create.html', {'delivery_form': delivery_form})
+    return render(request, 'delivery_report/delivery_report_create.html',
+                  {'delivery_form': delivery_form})
 
 
 @login_required
@@ -44,6 +45,7 @@ def delivery_report_history(request):
 
 @login_required()
 def delivery_report_email(request):
+    transport_email = ['balioz.s@grando.pro']
     if request.method == 'POST':
         report_form = EmailReportToClientForm(request.POST)
         if report_form.is_valid():
@@ -57,14 +59,19 @@ def delivery_report_email(request):
                 report_instance.save()
                 clients = report_form.cleaned_data['clients']
                 report_instance.clients.set(clients)
-
+                
+                
                 for client in clients:
                     client_email = client.main_email.split(',')
                     to_email = client_email[0]
                     cc_email = client_email[1:]
+                    cc_email_transport = cc_email.extend(transport_email)
+                    print(cc_email_transport)
+                    #cc_email_transport = cc_email.append(transport_email)
+                    
                     subject = f'Отчет по доставке {report_instance.direction} за {report_instance.date}'
                     message = f'{report_instance.message}'
-                    email = EmailMessage(subject, message, to=[to_email], cc=cc_email)
+                    email = EmailMessage(subject, message, to=[to_email], cc=cc_email)  # + transport@grando.pro
                     email.send()
 
                 return HttpResponseRedirect(reverse('delivery_report:delivery_report_history'))
@@ -76,10 +83,3 @@ def delivery_report_email(request):
         report_form = EmailReportToClientForm()
 
     return render(request, 'delivery_report/delivery_report_email.html', {'report_form': report_form})
-
-
-
-
-
-
-
